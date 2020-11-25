@@ -11,7 +11,7 @@ namespace NewLoggerHomeWork
         private readonly Logger _logger;
         public Actions()
         {
-            _logger = Logger.GetInstance();
+            _logger = Logger.Instance;
         }
         public void MethodFirst()
         {

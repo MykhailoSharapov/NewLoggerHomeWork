@@ -10,7 +10,8 @@ namespace NewLoggerHomeWork
     {
         static void Main(string[] args)
         {
-            new Starter().Run();
+            Starter starter = new Starter();
+            starter.Run();
             Console.ReadLine();
         }
     }

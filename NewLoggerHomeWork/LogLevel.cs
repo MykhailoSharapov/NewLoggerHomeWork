@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace NewLoggerHomeWork
 {
-
     public enum LogLevel
     {
         Info,
         Warning,
         Error
     }
-
 }

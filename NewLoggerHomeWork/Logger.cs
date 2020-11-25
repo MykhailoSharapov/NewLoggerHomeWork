@@ -11,16 +11,9 @@ namespace NewLoggerHomeWork
         {
 
         }
-        private static Logger instance;
         private StringBuilder LogMessages = new StringBuilder();
-        public static Logger GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new Logger();
-            }
-            return instance;
-        }
+        private static readonly Logger _instance = new Logger();
+        public static Logger Instance => _instance;
         public void Log(LogLevel warningLevels, Exception ex)
         {
             string result = $"{warningLevels}, Action failed by reason: {ex.StackTrace}";
@@ -35,9 +28,9 @@ namespace NewLoggerHomeWork
             Console.WriteLine(result);
         }
 
-        public void SaveLogFile()
+        public StringBuilder GetLogReport()
         {
-            File.WriteAllText(DateTime.Now.ToFileTimeUtc().ToString() + ".txt", LogMessages.ToString());
+            return LogMessages;
         }
     }
 }
