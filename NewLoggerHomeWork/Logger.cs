@@ -32,9 +32,9 @@ namespace NewLoggerHomeWork
         {
             Log(LogLevel.Warning, message);
         }
-        public void Log(LogLevel warningLevels, string Message)
+        public void Log(LogLevel warningLevels, string message)
         {
-            var result = $"{warningLevels}, Message: {Message}";
+            var result = $"{warningLevels}, Message: {message}";
             Messages.AppendLine(result);
             Console.WriteLine(result);
         }

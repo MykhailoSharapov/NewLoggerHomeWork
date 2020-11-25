@@ -41,7 +41,8 @@ namespace NewLoggerHomeWork
                     _logger.LogError(ex.Message, ex);
                 }
             }
-            File.WriteAllText($"{DateTime.UtcNow.ToFileTime().ToString()}.txt", _logger.Messages.ToString());
+            var fileManager = new FileManager();
+            fileManager.SaveLogReportInFile(_logger);
         }
     }
 }
