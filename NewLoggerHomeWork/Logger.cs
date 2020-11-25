@@ -12,7 +12,7 @@ namespace NewLoggerHomeWork
 
         }
         private static Logger instance;
-        private static StringBuilder LogMessages = new StringBuilder();
+        private StringBuilder LogMessages = new StringBuilder();
         public static Logger GetInstance()
         {
             if (instance == null)
@@ -37,7 +37,7 @@ namespace NewLoggerHomeWork
 
         public void SaveLogFile()
         {
-            File.WriteAllText(DateTime.Now.Ticks.ToString() + ".txt", LogMessages.ToString());
+            File.WriteAllText(DateTime.Now.ToFileTimeUtc().ToString() + ".txt", LogMessages.ToString());
         }
     }
 }
