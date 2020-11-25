@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace NewLoggerHomeWork
 {
@@ -11,7 +12,7 @@ namespace NewLoggerHomeWork
 
         }
         private static Logger instance;
-        private static List<string> LogMessages = new List<string>();
+        private static StringBuilder LogMessages = new StringBuilder();
         public static Logger GetInstance()
         {
             if (instance == null)
@@ -20,23 +21,23 @@ namespace NewLoggerHomeWork
             }
             return instance;
         }
-        public void NewMessage(string MessageLevel, Exception ex)
+        public void Info(GlobalConstans.WarningLevels warningLevels, Exception ex)
         {
-            string result = $"{MessageLevel}, Action failed by reason: {ex.StackTrace}";
-            LogMessages.Add(result);
+            string result = $"{nameof(warningLevels)}, Action failed by reason: {ex.StackTrace}";
+            LogMessages.AppendLine(result);
             Console.WriteLine(result);
         }
 
-        public void NewMessage(string MessageLevel, string Message)
+        public void Info(GlobalConstans.WarningLevels warningLevels, string Message)
         {
-            string result = $"{MessageLevel}, Message: {Message}";
-            LogMessages.Add(result);
+            string result = $"{nameof(warningLevels)}, Message: {Message}";
+            LogMessages.AppendLine(result);
             Console.WriteLine(result);
         }
 
         public void SaveLogFile()
         {
-            File.AppendAllLines(DateTime.Now.Ticks.ToString() + ".txt", LogMessages);
+            File.WriteAllText(DateTime.Now.Ticks.ToString() + ".txt", LogMessages.ToString());
         }
     }
 }
