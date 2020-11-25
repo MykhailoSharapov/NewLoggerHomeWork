@@ -22,7 +22,7 @@ namespace NewLoggerHomeWork
             return instance;
         }
         public void Info(GlobalConstans.WarningLevels warningLevels, Exception ex)
-        {            
+        {
             string result = $"{warningLevels}, Action failed by reason: {ex.StackTrace}";
             LogMessages.AppendLine(result);
             Console.WriteLine(result);
