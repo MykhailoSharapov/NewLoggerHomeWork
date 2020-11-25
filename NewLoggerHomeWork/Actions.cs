@@ -8,15 +8,18 @@ namespace NewLoggerHomeWork
 {
     public class Actions
     {
+        Logger log;
+        public Actions()
+        {
+            log = Logger.GetInstance();
+        }
         public void MethodFirst()
         {
-            Logger log = Logger.GetInstance();
             log.Info(GlobalConstans.WarningLevels.Info, "Start method:" + nameof(MethodFirst));
 
         }
         public void MethodSecond()
         {
-            Logger log = Logger.GetInstance();
             log.Info(GlobalConstans.WarningLevels.Warning, "Skipped logic in method:" + nameof(MethodSecond));
         }
         public void MethodThird()
