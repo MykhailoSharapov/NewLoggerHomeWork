@@ -34,7 +34,7 @@ namespace NewLoggerHomeWork
                 }
                 catch (Exception ex)
                 {
-                    log.Info(GlobalConstans.WarningLevels.Error, ex);
+                    log.Log(LogLevel.Error, ex);
                 }
             }
             log.SaveLogFile();

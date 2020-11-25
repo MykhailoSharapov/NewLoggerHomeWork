@@ -8,19 +8,19 @@ namespace NewLoggerHomeWork
 {
     public class Actions
     {
-        Logger log;
+        public Logger _logger;
         public Actions()
         {
-            log = Logger.GetInstance();
+            _logger = Logger.GetInstance();
         }
         public void MethodFirst()
         {
-            log.Info(GlobalConstans.WarningLevels.Info, "Start method:" + nameof(MethodFirst));
+            _logger.Log(LogLevel.Info, $"Start method:{nameof(MethodFirst)}");
 
         }
         public void MethodSecond()
         {
-            log.Info(GlobalConstans.WarningLevels.Warning, "Skipped logic in method:" + nameof(MethodSecond));
+            _logger.Log(LogLevel.Warning, $"Skipped logic in method:{nameof(MethodSecond)}");
         }
         public void MethodThird()
         {
