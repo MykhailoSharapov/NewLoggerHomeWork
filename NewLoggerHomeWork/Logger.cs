@@ -9,28 +9,34 @@ namespace NewLoggerHomeWork
     {
         private Logger()
         {
-
+            Messages = new StringBuilder();
         }
-        private StringBuilder LogMessages = new StringBuilder();
+        public StringBuilder Messages { get; private set; }
         private static readonly Logger _instance = new Logger();
         public static Logger Instance => _instance;
-        public void Log(LogLevel warningLevels, Exception ex)
+        public void LogError(string message, Exception ex = null)
         {
-            string result = $"{warningLevels}, Action failed by reason: {ex.StackTrace}";
-            LogMessages.AppendLine(result);
+            var result = $"{LogLevel.Error}, Action failed by reason: {message}";
+            if (ex != null)
+            {
+                result += $" stacktrace: {ex.StackTrace}";
+            }
+            Messages.AppendLine(result);
             Console.WriteLine(result);
         }
-
+        public void LogInfo(string message)
+        {
+            Log(LogLevel.Info, message);
+        }
+        public void LogWarning(string message)
+        {
+            Log(LogLevel.Warning, message);
+        }
         public void Log(LogLevel warningLevels, string Message)
         {
-            string result = $"{warningLevels}, Message: {Message}";
-            LogMessages.AppendLine(result);
+            var result = $"{warningLevels}, Message: {Message}";
+            Messages.AppendLine(result);
             Console.WriteLine(result);
-        }
-
-        public StringBuilder GetLogReport()
-        {
-            return LogMessages;
         }
     }
 }

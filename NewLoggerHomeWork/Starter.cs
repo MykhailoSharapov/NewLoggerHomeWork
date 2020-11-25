@@ -18,14 +18,12 @@ namespace NewLoggerHomeWork
         }
         public void Run()
         {
-
             var rand = new Random();
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
                 try
                 {
-                    var funcRandNum = rand.Next(1, 4);
-                    switch (funcRandNum)
+                    switch (rand.Next(1, 4))
                     {
                         case 1:
                             _actions.MethodFirst();
@@ -40,11 +38,10 @@ namespace NewLoggerHomeWork
                 }
                 catch (Exception ex)
                 {
-                    _logger.Log(LogLevel.Error, ex);
+                    _logger.LogError(ex.Message, ex);
                 }
             }
-
-            File.WriteAllText($"{ DateTime.UtcNow.ToFileTime().ToString()}.txt", _logger.GetLogReport().ToString());
+            File.WriteAllText($"{DateTime.UtcNow.ToFileTime().ToString()}.txt", _logger.Messages.ToString());
         }
     }
 }

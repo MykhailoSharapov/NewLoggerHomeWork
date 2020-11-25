@@ -12,7 +12,6 @@ namespace NewLoggerHomeWork
         {
             Starter starter = new Starter();
             starter.Run();
-            Console.ReadLine();
         }
     }
 }

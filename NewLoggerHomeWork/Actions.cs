@@ -15,12 +15,12 @@ namespace NewLoggerHomeWork
         }
         public void MethodFirst()
         {
-            _logger.Log(LogLevel.Info, $"Start method:{nameof(MethodFirst)}");
+            _logger.LogInfo($"Start method:{nameof(MethodFirst)}");
 
         }
         public void MethodSecond()
         {
-            _logger.Log(LogLevel.Warning, $"Skipped logic in method:{nameof(MethodSecond)}");
+            _logger.LogWarning($"Skipped logic in method:{nameof(MethodSecond)}");
         }
         public void MethodThird()
         {
