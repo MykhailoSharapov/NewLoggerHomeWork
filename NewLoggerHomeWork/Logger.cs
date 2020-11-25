@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace NewLoggerHomeWork
 {
@@ -21,6 +19,24 @@ namespace NewLoggerHomeWork
                 instance = new Logger();
             }
             return instance;
+        }
+        public void NewMessage(string MessageLevel, Exception ex)
+        {
+            string result = $"{MessageLevel}, Action failed by reason: {ex.StackTrace}";
+            LogMessages.Add(result);
+            Console.WriteLine(result);
+        }
+
+        public void NewMessage(string MessageLevel, string Message)
+        {
+            string result = $"{MessageLevel}, Message: {Message}";
+            LogMessages.Add(result);
+            Console.WriteLine(result);
+        }
+
+        public void SaveLogFile()
+        {
+            File.AppendAllLines(DateTime.Now.Ticks.ToString() + ".txt", LogMessages);
         }
     }
 }
