@@ -8,7 +8,7 @@ namespace NewLoggerHomeWork
 {
     public class Actions
     {
-        public Logger _logger;
+        private readonly Logger _logger;
         public Actions()
         {
             _logger = Logger.GetInstance();
