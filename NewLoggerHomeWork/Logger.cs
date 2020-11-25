@@ -6,17 +6,17 @@ using System.Text;
 namespace NewLoggerHomeWork
 {
     public class Logger
-    {
+    {        
+        private static readonly Logger _instance = new Logger();
         private Logger()
         {
             Messages = new StringBuilder();
         }
-        public StringBuilder Messages { get; private set; }
-        private static readonly Logger _instance = new Logger();
+        public StringBuilder Messages { get; private set; }        
         public static Logger Instance => _instance;
         public void LogError(string message, Exception ex = null)
         {
-            var result = $"{LogLevel.Error}, Action failed by reason: {message}";
+            var result = $"{LogLevel.Error}: {message}";
             if (ex != null)
             {
                 result += $" stacktrace: {ex.StackTrace}";
