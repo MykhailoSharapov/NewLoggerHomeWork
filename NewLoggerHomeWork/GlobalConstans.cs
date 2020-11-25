@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace NewLoggerHomeWork
 {
-    class Program
+    class GlobalConstans
     {
-        static void Main(string[] args)
+        public enum WarningLevels
         {
-            
+            Info,
+            Warning,
+            Error
         }
     }
 }
