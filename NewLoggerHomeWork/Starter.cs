@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewLoggerHomeWork
 {
-    class Starter
+    public class Starter
     {
         public void Run()
         {

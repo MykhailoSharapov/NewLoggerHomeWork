@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NewLoggerHomeWork
 {
-    class Logger
+    public class Logger
     {
         private Logger()
         {
