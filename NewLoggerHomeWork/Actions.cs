@@ -16,7 +16,6 @@ namespace NewLoggerHomeWork
         public void MethodFirst()
         {
             _logger.LogInfo($"Start method:{nameof(MethodFirst)}");
-
         }
         public void MethodSecond()
         {

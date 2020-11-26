@@ -11,10 +11,12 @@ namespace NewLoggerHomeWork
     {
         private readonly Actions _actions;
         private readonly Logger _logger;
+        private readonly LoggerService _loggerService;
         public Starter()
         {
             _actions = new Actions();
             _logger = Logger.Instance;
+            _loggerService = new LoggerService();
         }
         public void Run()
         {
@@ -41,8 +43,17 @@ namespace NewLoggerHomeWork
                     _logger.LogError(ex.Message, ex);
                 }
             }
-            var fileManager = new FileManager();
-            fileManager.SaveLogReportInFile(_logger);
+            try
+            {                
+                var fileName = $"{DateTime.UtcNow.ToFileTime().ToString()}.txt";
+                _loggerService.SaveLogReportInFile(fileName);
+                Console.WriteLine($"{fileName} saved succesfull!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Saving report error!");
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

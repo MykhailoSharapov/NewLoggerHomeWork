@@ -8,11 +8,12 @@ namespace NewLoggerHomeWork
     public class Logger
     {        
         private static readonly Logger _instance = new Logger();
+        private static readonly StringBuilder _messages = new StringBuilder();
         private Logger()
         {
-            Messages = new StringBuilder();
+           
         }
-        public StringBuilder Messages { get; private set; }        
+        public static StringBuilder Messages => _messages;
         public static Logger Instance => _instance;
         public void LogError(string message, Exception ex = null)
         {
@@ -32,9 +33,9 @@ namespace NewLoggerHomeWork
         {
             Log(LogLevel.Warning, message);
         }
-        public void Log(LogLevel warningLevels, string message)
+        public void Log(LogLevel logLevels, string message)
         {
-            var result = $"{warningLevels}, Message: {message}";
+            var result = $"{logLevels}, Message: {message}";
             Messages.AppendLine(result);
             Console.WriteLine(result);
         }
