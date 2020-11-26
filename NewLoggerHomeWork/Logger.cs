@@ -6,18 +6,18 @@ using System.Text;
 namespace NewLoggerHomeWork
 {
     public class Logger
-    {        
+    {
         private static readonly Logger _instance = new Logger();
         private static readonly StringBuilder _messages = new StringBuilder();
         private Logger()
         {
-           
+
         }
         public static StringBuilder Messages => _messages;
         public static Logger Instance => _instance;
         public void LogError(string message, Exception ex = null)
         {
-            var result = $"LogLevel: {LogLevel.Error}: {message}";
+            var result = $"LogLevel: {LogLevel.Error}, Message: {message}";
             if (ex != null)
             {
                 result += $" stacktrace: {ex.StackTrace}";

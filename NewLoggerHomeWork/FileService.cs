@@ -9,9 +9,9 @@ namespace NewLoggerHomeWork
 {
     public class FileService
     {
-        public void WriteFile(string path,string text)
+        public void WriteFile(string path, string text)
         {
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 throw new Exception("File exist!");
             }

@@ -44,15 +44,14 @@ namespace NewLoggerHomeWork
                 }
             }
             try
-            {                
+            {
                 var fileName = $"{DateTime.UtcNow.ToFileTime().ToString()}.txt";
                 _fileService.WriteFile(fileName, Logger.Messages.ToString());
-                Console.WriteLine($"{fileName} saved succesfull!");
+                _logger.LogInfo($"{fileName} saved succesfull!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Saving report error!");
-                Console.WriteLine(ex.Message);
+                _logger.LogError("Saving report error!", ex);
             }
         }
     }
