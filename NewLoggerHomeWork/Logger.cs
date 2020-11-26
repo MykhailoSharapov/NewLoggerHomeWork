@@ -17,7 +17,7 @@ namespace NewLoggerHomeWork
         public static Logger Instance => _instance;
         public void LogError(string message, Exception ex = null)
         {
-            var result = $"{LogLevel.Error}: {message}";
+            var result = $"LogLevel: {LogLevel.Error}: {message}";
             if (ex != null)
             {
                 result += $" stacktrace: {ex.StackTrace}";
@@ -35,7 +35,7 @@ namespace NewLoggerHomeWork
         }
         public void Log(LogLevel logLevels, string message)
         {
-            var result = $"{logLevels}, Message: {message}";
+            var result = $"LogLevel: {logLevels}, Message: {message}";
             Messages.AppendLine(result);
             Console.WriteLine(result);
         }

@@ -11,12 +11,12 @@ namespace NewLoggerHomeWork
     {
         private readonly Actions _actions;
         private readonly Logger _logger;
-        private readonly LoggerService _loggerService;
+        private readonly FileService _fileService;
         public Starter()
         {
             _actions = new Actions();
             _logger = Logger.Instance;
-            _loggerService = new LoggerService();
+            _fileService = new FileService();
         }
         public void Run()
         {
@@ -46,7 +46,7 @@ namespace NewLoggerHomeWork
             try
             {                
                 var fileName = $"{DateTime.UtcNow.ToFileTime().ToString()}.txt";
-                _loggerService.SaveLogReportInFile(fileName);
+                _fileService.WriteFile(fileName, Logger.Messages.ToString());
                 Console.WriteLine($"{fileName} saved succesfull!");
             }
             catch (Exception ex)

@@ -7,21 +7,15 @@ using System.IO;
 
 namespace NewLoggerHomeWork
 {
-    public class LoggerService
+    public class FileService
     {
-        private readonly Logger _logger;
-        
-        public LoggerService()
-        {
-            _logger = Logger.Instance;
-        }
-        public void SaveLogReportInFile(string path)
+        public void WriteFile(string path,string text)
         {
             if(File.Exists(path))
             {
                 throw new Exception("File exist!");
             }
-            File.WriteAllText(path, Logger.Messages.ToString());
+            File.WriteAllText(path, text);
         }
     }
 }
