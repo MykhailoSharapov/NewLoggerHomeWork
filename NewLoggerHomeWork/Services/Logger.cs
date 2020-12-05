@@ -42,8 +42,8 @@ namespace NewLoggerHomeWork
                 result += $":{ex}";
             }
 
-            this.fileService.Write($"{result}{Environment.NewLine}");
-            Console.WriteLine(result);
+            result = $"{result}{Environment.NewLine}";
+            this.WriteData(result);
         }
 
         /// <summary>
@@ -72,8 +72,13 @@ namespace NewLoggerHomeWork
         public void Log(LogLevel logLevel, string message)
         {
             var result = $"{DateTime.UtcNow:hh:mm:ss}:{logLevel}:{message} {Environment.NewLine}";
-            this.fileService.Write(result);
-            Console.WriteLine(result);
+            this.WriteData(result);
+        }
+
+        private void WriteData(string data)
+        {
+            this.fileService.Write(data);
+            Console.WriteLine(data);
         }
     }
 }

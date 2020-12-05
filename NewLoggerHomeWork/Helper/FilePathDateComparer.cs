@@ -13,6 +13,13 @@ namespace NewLoggerHomeWork
     public class FilePathDateComparer : IComparer
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilePathDateComparer"/> class.
+        /// </summary>
+        public FilePathDateComparer()
+        {
+        }
+
+        /// <summary>
         /// funk for compairing filepath via date.
         /// </summary>
         /// <param name="x">first date.</param>
@@ -20,9 +27,9 @@ namespace NewLoggerHomeWork
         /// <returns>int result of compairing.</returns>
         public int Compare(object x, object y)
         {
-            x = this.GetFileName(x.ToString());
-            y = this.GetFileName(y.ToString());
-            if (DateTime.TryParse(x.ToString(), out DateTime dateTime1) && DateTime.TryParse(y.ToString(), out DateTime dateTime2))
+            string fileName1 = FileService.GetFileName(x.ToString());
+            string fileName2 = FileService.GetFileName(y.ToString());
+            if (DateTime.TryParse(fileName1, out DateTime dateTime1) && DateTime.TryParse(fileName2, out DateTime dateTime2))
             {
                 if (dateTime1 < dateTime2)
                 {
@@ -41,17 +48,6 @@ namespace NewLoggerHomeWork
             {
                 throw new Exception("Invalid logFile name");
             }
-        }
-
-        /// <summary>
-        /// Funk for convert file path to file name.
-        /// </summary>
-        /// <param name="str">File path.</param>
-        /// <returns>File Name.</returns>
-        private string GetFileName(string str)
-        {
-            string[] result = str.Replace(".txt", string.Empty).Replace(FileService.DirectoryPath, string.Empty).Split(' ');
-            return $"{result[1].Replace(".", "/")} {result[0].Replace(".", ":")}";
         }
     }
 }
