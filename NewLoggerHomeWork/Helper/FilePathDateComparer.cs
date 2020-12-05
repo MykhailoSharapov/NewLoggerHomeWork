@@ -27,8 +27,8 @@ namespace NewLoggerHomeWork
         /// <returns>int result of compairing.</returns>
         public int Compare(object x, object y)
         {
-            string fileName1 = FileService.GetFileName(x.ToString());
-            string fileName2 = FileService.GetFileName(y.ToString());
+            var fileName1 = FileService.GetFileName(x.ToString());
+            var fileName2 = FileService.GetFileName(y.ToString());
             if (DateTime.TryParse(fileName1, out DateTime dateTime1) && DateTime.TryParse(fileName2, out DateTime dateTime2))
             {
                 if (dateTime1 < dateTime2)

@@ -57,7 +57,7 @@ namespace NewLoggerHomeWork
         /// <returns>File Name.</returns>
         public static string GetFileName(string str)
         {
-            string[] result = str.Replace($"{FileExtension}", string.Empty).Replace(FileService.DirectoryPath, string.Empty).Split(' ');
+            var result = str.Replace($"{FileExtension}", string.Empty).Replace(FileService.DirectoryPath, string.Empty).Split(' ');
             return $"{result[1].Replace(".", "/")} {result[0].Replace(".", ":")}";
         }
 
