@@ -1,21 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿// <copyright file="Starter.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace NewLoggerHomeWork
 {
+    using System;
+
+    /// <summary>
+    /// Starter class using for start testing our algoritms.
+    /// </summary>
     public class Starter
     {
-        private readonly Actions _actions;
-        private readonly Logger _logger;
+        private readonly Actions actions;
+        private readonly Logger logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Starter"/> class.
+        /// And initialize Logger and ations.
+        /// </summary>
         public Starter()
         {
-            _actions = new Actions();
-            _logger = Logger.Instance;
+            this.actions = new Actions();
+            this.logger = Logger.Instance;
         }
+
+        /// <summary>
+        /// funk for random call testing functions.
+        /// </summary>
         public void Run()
         {
             var rand = new Random();
@@ -26,23 +37,23 @@ namespace NewLoggerHomeWork
                     switch (rand.Next(1, 4))
                     {
                         case 1:
-                            _actions.MethodFirst();
+                            this.actions.MethodFirst();
                             break;
                         case 2:
-                            _actions.MethodSecond();
+                            this.actions.MethodSecond();
                             break;
                         case 3:
-                            _actions.MethodThird();
+                            this.actions.MethodThird();
                             break;
                     }
                 }
-                catch(BusinesException bex)
+                catch (BusinesException bex)
                 {
-                    _logger.LogWarning($"Action got this custom Exception :{bex}");
+                    this.logger.LogWarning($"Action got this custom Exception :{bex}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex.Message, ex);
+                    this.logger.LogError(ex.Message, ex);
                 }
             }
         }
