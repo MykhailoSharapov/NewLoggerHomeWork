@@ -11,12 +11,10 @@ namespace NewLoggerHomeWork
     {
         private readonly Actions _actions;
         private readonly Logger _logger;
-        private readonly FileService _fileService;
         public Starter()
         {
             _actions = new Actions();
             _logger = Logger.Instance;
-            _fileService = new FileService();
         }
         public void Run()
         {
@@ -38,20 +36,14 @@ namespace NewLoggerHomeWork
                             break;
                     }
                 }
+                catch(BusinesException bex)
+                {
+                    _logger.LogWarning($"Action got this custom Exception :{bex}");
+                }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex.Message, ex);
                 }
-            }
-            try
-            {
-                var fileName = $"{DateTime.UtcNow.ToFileTime().ToString()}.txt";
-                _fileService.WriteFile(fileName, Logger.Messages.ToString());
-                _logger.LogInfo($"{fileName} saved succesfull!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Saving report error!", ex);
             }
         }
     }

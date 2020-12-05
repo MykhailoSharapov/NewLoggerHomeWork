@@ -9,13 +9,35 @@ namespace NewLoggerHomeWork
 {
     public class FileService
     {
-        public void WriteFile(string path, string text)
+        public static string _directoryPath = "Logs\\";
+        private static readonly FileService _instance = new FileService();
+        private static string _fileName;
+        private const int _countSavedLogs = 3;
+        private FileService()
         {
-            if (File.Exists(path))
+            if (!Directory.Exists(_directoryPath))
             {
-                throw new Exception("File exist!");
+                Directory.CreateDirectory(_directoryPath);
             }
-            File.WriteAllText(path, text);
+
+            string[] filesPath = Directory.GetFiles(_directoryPath, "*.txt", SearchOption.TopDirectoryOnly);
+            
+            Array.Sort(filesPath, new FilePathDateComparer());
+
+            for (var i = 0; i < filesPath.Length; i++)
+            {
+                DateTime fileCreationTime = File.GetCreationTimeUtc(filesPath[i]);
+                if (fileCreationTime.AddDays(2) < DateTime.UtcNow || i+2 > _countSavedLogs)
+                {
+                    File.Delete(filesPath[i]);
+                }
+            }
+            _fileName = $"{DateTime.UtcNow.ToString("hh.mm.ss dd.MM.yyyy")}.txt";
+        }
+        public static FileService Instance => _instance;
+        public void Write(string text)
+        {
+            File.AppendAllText($"{_directoryPath}{_fileName}", text);
         }
     }
 }

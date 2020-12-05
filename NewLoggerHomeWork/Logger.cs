@@ -8,21 +8,24 @@ namespace NewLoggerHomeWork
     public class Logger
     {
         private static readonly Logger _instance = new Logger();
-        private static readonly StringBuilder _messages = new StringBuilder();
+        //private static readonly StringBuilder _messages = new StringBuilder();
+        private readonly FileService _fileService;
         private Logger()
         {
-
+            _fileService = FileService.Instance;
         }
-        public static StringBuilder Messages => _messages;
+        //public static StringBuilder Messages => _messages;
         public static Logger Instance => _instance;
         public void LogError(string message, Exception ex = null)
         {
-            var result = $"LogLevel: {LogLevel.Error}, Message: {message}";
+            //var result = $"LogLevel: {LogLevel.Error}, Message: {message}";
+              var result = $"{DateTime.UtcNow.ToString("hh:mm:ss")}:{LogLevel.Error}:{message}";
             if (ex != null)
             {
-                result += $" stacktrace: {ex.StackTrace}";
+                result += $":{ex}";
             }
-            Messages.AppendLine(result);
+
+            _fileService.Write($"{result}{Environment.NewLine}");
             Console.WriteLine(result);
         }
         public void LogInfo(string message)
@@ -33,10 +36,11 @@ namespace NewLoggerHomeWork
         {
             Log(LogLevel.Warning, message);
         }
-        public void Log(LogLevel logLevels, string message)
+        public void Log(LogLevel logLevel, string message)
         {
-            var result = $"LogLevel: {logLevels}, Message: {message}";
-            Messages.AppendLine(result);
+            //var result = $"LogLevel: {logLevels}, Message: {message}";
+            var result = $"{DateTime.UtcNow.ToString("hh:mm:ss")}:{logLevel}:{message} {Environment.NewLine}";
+            _fileService.Write(result);
             Console.WriteLine(result);
         }
     }

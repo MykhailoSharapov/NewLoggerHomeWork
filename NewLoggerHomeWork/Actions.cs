@@ -19,7 +19,8 @@ namespace NewLoggerHomeWork
         }
         public void MethodSecond()
         {
-            _logger.LogWarning($"Skipped logic in method:{nameof(MethodSecond)}");
+            //_logger.LogWarning($"Skipped logic in method:{nameof(MethodSecond)}");
+            throw new BusinesException($"Skipped logic in method:{nameof(MethodSecond)}");
         }
         public void MethodThird()
         {
