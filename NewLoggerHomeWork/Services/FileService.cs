@@ -5,6 +5,7 @@
 namespace NewLoggerHomeWork
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
 
     /// <summary>
@@ -12,37 +13,21 @@ namespace NewLoggerHomeWork
     /// </summary>
     public class FileService
     {
-        /// <summary>
-        /// path of directory where stored all logs.
-        /// </summary>
-        public static readonly string DirectoryPath = "Logs\\";
         private const string FileExtension = ".txt";
+        private const string FileNameMask = "hh.mm.ss dd.MM.yyyy";
         private const int CountSavedLogs = 3;
+        private static readonly string DirectoryPath = "Logs\\";
         private static readonly FileService InstanceValue = new FileService();
         private readonly string fileName;
-        private readonly TimeSpan fileLifetime = new TimeSpan(2, 0, 0, 0, 0);
+        private readonly double fileLifetime = 2;
+        private readonly StreamWriter sw;
 
         private FileService()
         {
-            if (!Directory.Exists(DirectoryPath))
-            {
-                Directory.CreateDirectory(DirectoryPath);
-            }
-
-            var filesPath = Directory.GetFiles(DirectoryPath, $"*{FileExtension}", SearchOption.TopDirectoryOnly);
-
-            Array.Sort(filesPath, new FilePathDateComparer());
-
-            for (var i = 0; i < filesPath.Length; i++)
-            {
-                var fileCreationTime = File.GetCreationTimeUtc(filesPath[i]);
-                if (fileCreationTime < DateTime.UtcNow.Add(-this.fileLifetime) || i >= CountSavedLogs - 1)
-                {
-                    File.Delete(filesPath[i]);
-                }
-            }
-
-            this.fileName = $"{DateTime.UtcNow:hh.mm.ss dd.MM.yyyy}{FileExtension}";
+            this.CheckDirectory();
+            this.CheckFilesInDirect();
+            this.fileName = $"{DateTime.UtcNow.ToString(FileNameMask)}{FileExtension}";
+            this.sw = new StreamWriter($"{DirectoryPath}{this.fileName}", true);
         }
 
         /// <summary>
@@ -51,7 +36,7 @@ namespace NewLoggerHomeWork
         public static FileService Instance => InstanceValue;
 
         /// <summary>
-        /// Funk for convert file path to file name.
+        /// Funk for convert file path to file name in date time format.
         /// </summary>
         /// <param name="str">File path.</param>
         /// <returns>File Name.</returns>
@@ -67,7 +52,45 @@ namespace NewLoggerHomeWork
         /// <param name="text">input text.</param>
         public void Write(string text)
         {
-            File.AppendAllText($"{DirectoryPath}{this.fileName}", text);
+           // File.AppendAllText($"{DirectoryPath}{this.fileName}", text);
+            this.sw.WriteLine(text);
+        }
+
+        private void CheckDirectory()
+        {
+            if (!Directory.Exists(DirectoryPath))
+            {
+                Directory.CreateDirectory(DirectoryPath);
+            }
+        }
+
+        private void CheckFilesInDirect()
+        {
+            var filesPath = Directory.GetFiles(DirectoryPath, $"*{FileExtension}", SearchOption.TopDirectoryOnly);
+            if (filesPath.Length > 0)
+            {
+                List<FileInfo> files = new List<FileInfo>();
+
+                foreach (string path in filesPath)
+                {
+                    files.Add(new FileInfo(path));
+                }
+
+                files.Sort((IComparer<FileInfo>)new FilePathDateComparer());
+
+                for (var i = 0; i < files.Count; i++)
+                {
+                    if (DateTime.UtcNow - files[i].CreationTimeUtc > TimeSpan.FromDays(this.fileLifetime) || i >= CountSavedLogs - 1)
+                    {
+                        this.DeleteFile(files[i].FullName);
+                    }
+                }
+            }
+        }
+
+        private void DeleteFile(string path)
+        {
+            File.Delete(path);
         }
     }
 }

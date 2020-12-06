@@ -35,15 +35,7 @@ namespace NewLoggerHomeWork
         /// <param name="ex">exception or null.</param>
         public void LogError(string message, Exception ex = null)
         {
-            var result = $"{DateTime.UtcNow:hh:mm:ss}:{LogLevel.Error}:{message}";
-
-            if (ex != null)
-            {
-                result += $":{ex}";
-            }
-
-            result = $"{result}{Environment.NewLine}";
-            this.WriteData(result);
+            this.Log(LogLevel.Error, ex != null ? $"{message}:{ex}" : message);
         }
 
         /// <summary>
@@ -71,7 +63,7 @@ namespace NewLoggerHomeWork
         /// <param name="message">text of message.</param>
         public void Log(LogLevel logLevel, string message)
         {
-            var result = $"{DateTime.UtcNow:hh:mm:ss}:{logLevel}:{message} {Environment.NewLine}";
+            var result = $"{DateTime.UtcNow:hh:mm:ss}:{logLevel}:{message}";
             this.WriteData(result);
         }
 

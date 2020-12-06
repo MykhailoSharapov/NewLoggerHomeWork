@@ -6,47 +6,33 @@ namespace NewLoggerHomeWork
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     /// Custom data comparer for sorting file names via date.
     /// </summary>
-    public class FilePathDateComparer : IComparer
+    public class FilePathDateComparer : IComparer<FileInfo>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilePathDateComparer"/> class.
-        /// </summary>
-        public FilePathDateComparer()
-        {
-        }
-
         /// <summary>
         /// funk for compairing filepath via date.
         /// </summary>
         /// <param name="x">first date.</param>
         /// <param name="y">second date.</param>
         /// <returns>int result of compairing.</returns>
-        public int Compare(object x, object y)
+        public int Compare(FileInfo x, FileInfo y)
         {
-            var fileName1 = FileService.GetFileName(x.ToString());
-            var fileName2 = FileService.GetFileName(y.ToString());
-            if (DateTime.TryParse(fileName1, out DateTime dateTime1) && DateTime.TryParse(fileName2, out DateTime dateTime2))
+            if (x.CreationTimeUtc < y.CreationTimeUtc)
             {
-                if (dateTime1 < dateTime2)
-                {
-                    return 1;
-                }
-                else if (dateTime1 > dateTime2)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return 1;
+            }
+            else if (x.CreationTimeUtc > y.CreationTimeUtc)
+            {
+                return -1;
             }
             else
             {
-                throw new Exception("Invalid logFile name");
+                return 0;
             }
         }
     }
