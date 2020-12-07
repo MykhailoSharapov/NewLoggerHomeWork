@@ -16,11 +16,15 @@ namespace NewLoggerHomeWork
         private const string FileExtension = ".txt";
         private const string FileNameMask = "hh.mm.ss dd.MM.yyyy";
         private const int CountSavedLogs = 3;
-        private static readonly string DirectoryPath = "Logs\\";
-        private static readonly FileService InstanceValue = new FileService();
+        private const string DirectoryPath = "Logs\\";
+        private static readonly FileService instance = new FileService();
         private readonly string fileName;
         private readonly double fileLifetime = 2;
         private readonly StreamWriter sw;
+
+        static FileService()
+        {
+        }
 
         private FileService()
         {
@@ -33,7 +37,7 @@ namespace NewLoggerHomeWork
         /// <summary>
         /// Gets instance of Logger setting for sigleton pattern release.
         /// </summary>
-        public static FileService Instance => InstanceValue;
+        public static FileService Instance => instance;
 
         /// <summary>
         /// Writing input message in file.
@@ -58,14 +62,14 @@ namespace NewLoggerHomeWork
             var filesPath = Directory.GetFiles(DirectoryPath, $"*{FileExtension}", SearchOption.TopDirectoryOnly);
             if (filesPath.Length > 0)
             {
-                List<FileInfo> files = new List<FileInfo>();
+                var files = new List<FileInfo>();
 
                 foreach (string path in filesPath)
                 {
                     files.Add(new FileInfo(path));
                 }
 
-                files.Sort((IComparer<FileInfo>)new FilePathDateComparer());
+                files.Sort(new FilePathDateComparer());
 
                 for (var i = 0; i < files.Count; i++)
                 {

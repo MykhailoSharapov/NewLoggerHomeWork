@@ -22,13 +22,8 @@ namespace NewLoggerHomeWork
         void DeleteFile(string path);
 
         /// <summary>
-        /// Check Directory, if not exist - create!.
+        /// Configure Directory, if not exist - create!.
         /// </summary>
         void CheckDirectory();
-
-        /// <summary>
-        /// Check count of log files and their age.
-        /// </summary>
-        void CheckFilesInDirect();
     }
 }

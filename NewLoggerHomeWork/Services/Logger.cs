@@ -11,6 +11,7 @@ namespace NewLoggerHomeWork
     /// </summary>
     public class Logger : ILogger
     {
+        private const string TimeFormat = "hh:mm:ss";
         private static readonly Logger InstanceValue = new Logger();
         private readonly FileService fileService;
 
@@ -63,8 +64,7 @@ namespace NewLoggerHomeWork
         /// <param name="message">text of message.</param>
         public void Log(LogLevel logLevel, string message)
         {
-            var result = $"{DateTime.UtcNow:hh:mm:ss}:{logLevel}:{message}";
-            this.WriteData(result);
+            this.WriteData($"{DateTime.UtcNow.ToString(TimeFormat)}:{logLevel}:{message}");
         }
 
         private void WriteData(string data)
