@@ -36,17 +36,6 @@ namespace NewLoggerHomeWork
         public static FileService Instance => InstanceValue;
 
         /// <summary>
-        /// Funk for convert file path to file name in date time format.
-        /// </summary>
-        /// <param name="str">File path.</param>
-        /// <returns>File Name.</returns>
-        public static string GetFileName(string str)
-        {
-            var result = str.Replace($"{FileExtension}", string.Empty).Replace(FileService.DirectoryPath, string.Empty).Split(' ');
-            return $"{result[1].Replace(".", "/")} {result[0].Replace(".", ":")}";
-        }
-
-        /// <summary>
         /// Writing input message in file.
         /// </summary>
         /// <param name="text">input text.</param>
